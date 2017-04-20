@@ -12,6 +12,9 @@ rename : 更改数据对象名称;
 >> **数据控制语言DCL**  
 >>> grant : 赋予用户某种控制权限  
 revoke : 取消用户某种控制权限  
+  ```sql
+  >>> revoke select,update on 表名 from 用户名
+  ```
 >> **事务控制语言TCL**  
 >>> commit、rollback(恢复事务相关数据至上一次COMMIT操作之后)、savepoint(保存事务相关数据和状态用以可能的回滚操作)、  
 set transaction(设置事务选项)  
