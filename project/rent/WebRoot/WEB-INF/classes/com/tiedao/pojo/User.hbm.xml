@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tiedao.pojo">
+	<class name="User" table="tb_user">
+		<!-- 主键 -->
+		<id name="id" type="int" column="user_id">
+			<generator class="sequence">
+				<param name="sequence">tb_use_seq</param>
+			</generator>
+		</id>
+		<property name="realName" type="string"/>
+		<property name="nickName" type="string"/>
+		<property name="password" type="string"/>
+		<property name="address" type="string"/>
+		<property name="email" type="string"/>
+		<property name="qq" type="string"/>
+		<property name="phone" type="string"/>
+		<property name="credit" type="integer"/>
+		<property name="state" type="integer"/>
+		
+		<set name="products" inverse="true" cascade="delete" >
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="Product" />
+		</set>
+		
+		<set name="messages" inverse="true" cascade="delete" >
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="Message" />
+		</set>
+		
+		<set name="wanteds" inverse="true" cascade="delete" >
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="Wanted" />
+		</set>
+		
+		<set name="rents" inverse="true" cascade="delete" >
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="Rent" />
+		</set>
+		
+		<set name="topics" inverse="true" cascade="delete" >
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="Topic" />
+		</set>
+		
+		<set name="orders" inverse="true" cascade="delete" >
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="Order" />
+		</set>
+		
+		<set name="proassess" inverse="true" cascade="delete">
+			<key>
+				<column name="user_id"></column>
+			</key>
+			<one-to-many class="ProductAssess" />
+		</set>
+		
+		
+		<many-to-one name="role" column="rid" class="Role" fetch="select" lazy="false" />
+		
+	</class>
+</hibernate-mapping>

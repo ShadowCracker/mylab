@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tiedao.pojo">
+	<class name="Reply" table="tb_reply">
+		<!-- 主键 -->
+		<id name="id" type="int" column="id">
+			<generator class="sequence">
+				<param name="sequence">tb_reply_seq</param>
+			</generator>
+		</id>
+		<property name="content" />
+		<property name="rdate" type="date"/>
+		
+		<many-to-one name="topic" column="topic_id" class="Topic" fetch="select" />
+		<many-to-one name="user" column="user_id" class="User" fetch="select" lazy="false"/>
+	</class>
+</hibernate-mapping>

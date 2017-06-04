@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+	<!-- 数据库方言 hibernate.是可以省略 -->
+	<property name="hibernate.dialect">
+		org.hibernate.dialect.Oracle10gDialect
+	</property>
+	<property name="hibernate.connection.driver_class">
+		oracle.jdbc.driver.OracleDriver
+	</property>
+	<property name="hibernate.connection.url">
+		jdbc:oracle:thin:@localhost:1521:orcl
+	</property>
+	<property name="hibernate.connection.username">myrent</property>
+	<property name="hibernate.connection.password">myrent</property>
+	<!-- 执行代码的时候显示SQL语句到控制台 -->
+	<property name="show_sql">true</property>
+	<property name="format_sql">true</property>
+	<mapping resource="com/tiedao/pojo/Category.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Message.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Order.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Product.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/ProductAssess.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Rent.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Reply.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Role.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Topic.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/User.hbm.xml" />
+	<mapping resource="com/tiedao/pojo/Wanted.hbm.xml" />
+
+
+</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	
+	<!-- 配置Dao层 -->
+	<bean id="userDao" class="com.tiedao.dao.impl.UserDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean> 
+	
+	
+	<!-- 配置service层 -->
+	 <bean id="userService" class="com.tiedao.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean> 
+	
+	
+	
+	<!-- 配置Action层, scope="prototype"多例模式 -->
+	<bean id="userAction" class="com.tiedao.action.UserAction" scope="prototype">
+		<!-- userService必须得手动注入，即需要get/set方法 -->
+		<property name="userService" ref="userService"></property>
+	</bean> 
+	
+</beans>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tiedao.pojo">
+	<class name="Category" table="tb_category">
+		<!-- 主键 -->
+		<id name="id" type="int" column="cid">
+			<generator class="sequence">
+				<param name="sequence">tb_category_seq</param>
+			</generator>
+		</id>
+		<property name="name"  />
+		<property name="infor"  />
+		
+		<!-- column name="cid"外键名称 -->
+		<set name="products" inverse="true" cascade="delete" >
+			<key>
+				<column name="cid"></column>
+			</key>
+			<one-to-many class="Product" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

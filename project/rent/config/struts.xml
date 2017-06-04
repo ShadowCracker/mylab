@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="false" />
+	
+	<package name="logininter" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="logininter"
+				class="com.newer.interceptor.LoginInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<interceptor-stack name="checkLogin">
+				<interceptor-ref name="logininter" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="checkLogin"></default-interceptor-ref>
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+	</package>
+	
+	<package name="rent" namespace="/" extends="struts-default">
+		<action name="user_*" class="com.tiedao.action.UserAction" method="{1}">
+			<result name="list">/index.jsp</result>
+		</action>
+		<action name="user" class="com.tiedao.action.UserAction" >
+			<result name="list">/index.jsp</result>
+		</action>
+	</package>
+	
+	
+</struts>

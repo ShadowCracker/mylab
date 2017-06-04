@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tiedao.pojo">
+	<class name="Product" table="tb_product">
+		<!-- 主键 -->
+		<id name="id" type="int" column="product_id">
+			<generator class="sequence">
+				<param name="sequence">tb_product_seq</param>
+			</generator>
+		</id>
+		<one-to-one name="order" class="Order" property-ref="product" cascade="all"></one-to-one>
+		<property name="name"/>
+		<property name="rentFree" type="double"/>
+		<property name="deposit" type="double"/>
+		<property name="quantity" type="integer"/>
+		<property name="infor" />
+		<property name="photoPath"/>
+		<property name="pdate" type="date"/>
+		
+		<!-- column name="cid"外键名称 -->
+		<set name="evaluate" inverse="true" cascade="all" lazy="false">
+			<key>
+				<column name="product_id"></column>
+			</key>
+			<one-to-many class="ProductAssess" />
+		</set>
+		
+		
+		<!-- column="pid"外键的名称 -->
+		<many-to-one name="category" column="cid" class="Category" fetch="select" lazy="false" />
+		<many-to-one name="user" column="user_id" class="User" fetch="select" lazy="false" />
+		
+		
+	</class>
+</hibernate-mapping>

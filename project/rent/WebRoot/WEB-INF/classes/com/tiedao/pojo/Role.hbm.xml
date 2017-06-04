@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.tiedao.pojo">
+	<class name="Role" table="tb_role">
+		<!-- 主键 -->
+		<id name="id" type="int" column="rid">
+			<generator class="sequence">
+				<param name="sequence">tb_role_seq</param>
+			</generator>
+		</id>
+		<property name="name"/>
+		<property name="infor" />
+		
+		<!-- column name="rid"外键名称 -->
+		<set name="users" inverse="true" cascade="delete" >
+			<key>
+				<column name="rid"></column>
+			</key>
+			<one-to-many class="User" />
+		</set>
+		
+	</class>
+</hibernate-mapping>
