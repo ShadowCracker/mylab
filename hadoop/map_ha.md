@@ -1,0 +1,36 @@
+1、配置mapred-site.xml
+	<property>不用修改
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+2、配置yarn-site.xml
+	<property>不用修改
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+	<property>
+		<name>yarn.resourcemanager.ha.enabled</name>
+		<value>true</value>
+	</property>
+	<property>集群名称可以修改
+		<name>yarn.resourcemanager.cluster-id</name>
+		<value>cluster1</value>
+	</property>
+	<property>
+		<name>yarn.resourcemanager.ha.rm-ids</name>
+		<value>rm1,rm2</value>
+	</property>
+	<property>
+		<name>yarn.resourcemanager.hostname.rm1</name>
+		<value>master1</value>
+	</property>
+	<property>
+		<name>yarn.resourcemanager.hostname.rm2</name>
+		<value>master2</value>
+	</property>
+	<property>指定zookeeper位置
+		<name>yarn.resourcemanager.zk-address</name>
+		<value>zk1:2181,zk2:2181,zk3:2181</value>
+	</property>
+3、在使用start-all.sh 启动hadoop时resourcemanager需手动启动
+	到resourcemanager节点使用命令：yarn-daemon.sh start resourcemanager手动启动

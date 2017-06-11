@@ -1,0 +1,76 @@
+1、删除所有masters以及opt下的hadoop（要保证不存在或者为空）
+2、配置文件
+	（1）hdfs-site.xml
+		<property>
+			<name>dfs.replication</name>
+			<value>3</value>
+		</property>
+		<property>配置集群名称
+			<name>dfs.nameservices</name>
+			<value>yh520ss</value>
+		</property>
+		<property>配置两个NN的名称
+			<name>dfs.ha.namenodes.yh520ss</name>
+			<value>nn1,nn2</value>
+		</property>
+		<property>配置rpc—address
+			<name>dfs.namenode.rpc-address.yh520ss.nn1</name>
+			<value>node1:8020</value>
+		</property>
+			<name>dfs.namenode.rpc-address.yh520ss.nn2</name>
+			<value>node2:8020</value>
+		</property>
+		<property>配置http-address
+			<name>dfs.namenode.http-address.yh520ss.nn1</name>
+			<value>node1:50070</value>
+		</property>
+		<property>
+			<name>dfs.namenode.http-address.yh520ss.nn2</name>
+			<value>node2:50070</value>
+		</property>
+		<property>配置journalnode
+			<name>dfs.namenode.shared.edits.dir</name>
+			<value>qjournal://node2:8485;node3:8485;node4:8485/yh520ss</value>
+		</property>
+		<property>配置自动检测
+			<name>dfs.client.failover.proxy.provider.yh520ss</name>
+			<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+		</property>
+		<property>配置免密码登录方式
+			<name>dfs.ha.fencing.methods</name>
+			<value>sshfence</value>
+		</property>
+		<property>指定密码路径
+			<name>dfs.ha.fencing.ssh.private-key-files</name>
+			<value>/root/.ssh/id_rsa</value>
+		</property>
+		<property>配置journalnode的存储路径
+			<name>dfs.journalnode.edits.dir</name>
+			<value>/opt/journal/data</value>
+		</property>
+		<property>配置启动ha
+			<name>dfs.ha.automatic-failover.enabled</name>
+			<value>true</value>
+		</property>
+	（2）core-site.xml
+		<property>配置hdfs入口为集群
+			<name>fs.defaultFS</name>
+			<value>hdfs://yh520ss</value>
+		</property>
+		<property>临时目录
+			<name>hadoop.tmp.dir</name>
+			<value>/opt/hadoop_dir</value>
+		</property>
+		<property>指定zookeeper位置
+			<name>ha.zookeeper.quorum</name>
+			<value>node1:2181,node2:2181,node3:2181</value>
+		</property>
+3、分别在journalnode节点上启动journalnode
+		hadoop-daemon.sh start journalnode
+4、启动namenode
+		现在一台namenode节点上执行格式化：hdfs namenode -format
+		并在这台节点上启动namenode：hadoop-daemon.sh start namenode（否则另一台namenode在关联时会找不到）
+		在另一台namenode节点上执行同步：hdfs namenode -bootstrapStandby
+5、格式化zk
+		hdfs zkfc -formatZK
+6、启动hdfs
