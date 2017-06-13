@@ -79,3 +79,4 @@ node4		1	1			1
 5、格式化zk
 		hdfs zkfc -formatZK
 6、启动hdfs
+

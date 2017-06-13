@@ -8,6 +8,7 @@
 		一定要注意最后的所有字符！！！
 		mysql -u root -p密码
 	赋权限：grant all privileges on *.* to 'root'@'%' identified by 123 with grant option;
+
 2、hive
 	配置环境变量
 	配置文件：

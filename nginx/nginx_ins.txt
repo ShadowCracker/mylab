@@ -17,3 +17,5 @@
 	nginx 启动
 	nginx -s stop/quit
 	nginx -s reload 重新加载配置文件
+
+

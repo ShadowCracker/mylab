@@ -1,6 +1,6 @@
 1、修改yum源 /etc/yum.repos.d/CentOS-Base.repo
 	mirrors.aliyun.com
-	yum clean all   清除缓存
+	yum clean all   清除缓存 
 	yum makecache   生成缓存
 2、时间同步 ntp
 	yum install ntp -y

@@ -3,6 +3,7 @@
         <name>mapreduce.framework.name</name>
         <value>yarn</value>
     </property>
+
 2、配置yarn-site.xml
 	<property>不用修改
         <name>yarn.nodemanager.aux-services</name>
