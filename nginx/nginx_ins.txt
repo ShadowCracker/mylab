@@ -1,0 +1,19 @@
+1、下载
+	wget http://nginx.org
+2、解压
+	tar -zxvf nginx-1.13.1.tar.gz -C 目录
+3、可能需要的依赖
+	yum -y insatll gcc pcre-devel openssl-devel
+4、编译、构建、安装
+	./configure --prefix=/usr/local/nginx \
+	>--with-http_ssl_module \
+	>--with-http_realip_module \
+	>--with-http_flv_module \
+	>--with-http_mp4_module \
+	>--with-http_gzip_static_module 
+	make && make install
+5、进程管理
+	nginx -t 检查配置文件语法
+	nginx 启动
+	nginx -s stop/quit
+	nginx -s reload 重新加载配置文件

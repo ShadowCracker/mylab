@@ -1,3 +1,8 @@
+	NN	DN	JN	ZK	ZKFC	RS
+node1	1			1	1
+node2	1	1	1	1	1
+node3		1	1	1		1
+node4		1	1			1
 1、删除所有masters以及opt下的hadoop（要保证不存在或者为空）
 2、配置文件
 	（1）hdfs-site.xml

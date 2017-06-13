@@ -1,0 +1,81 @@
+1、安装mysql
+	yum install mysql-server
+	修改权限：
+		启动mysql：service mysqld start
+		mysql——>show databases——>use user
+	登录时需获取临时密码：
+		grep 'temporary password' /var/log/mysqld.log
+		一定要注意最后的所有字符！！！
+		mysql -u root -p密码
+	赋权限：grant all privileges on *.* to 'root'@'%' identified by 123 with grant option;
+2、hive
+	配置环境变量
+	配置文件：
+(1)单用户模式
+<configuration>
+<property>
+  <name>hive.metastore.warehouse.dir</name>
+  <value>/user/hive_remote/warehouse</value>
+</property>
+<property>
+  <name>hive.metastore.local</name>
+  <value>true</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:mysql://node1/hive_remote?createDatabaseIfNotExist=true</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionDriverName</name>
+  <value>com.mysql.jdbc.Driver</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionUserName</name>
+  <value>username</value>
+</property>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionPassword</name>
+  <value>password</value>
+</property>
+</configuration>
+在hive安装目录下的lib里添加mysql-connector-java-5.1.17-bin.jar（连接数据库时使用）
+将hadoop安装目录/home/hadoop-2.7.3/share/hadoop/yarn/lib/下的jline-2.12.jar与/home/hive-1.2.2/lib/jline-2.12.jar同步（连接hdfs时使用）
+(2)多用户
+服务端：
+<property>
+  <name>hive.metastore.warehouse.dir</name>
+  <value>/user/hive/warehouse</value>
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:mysql://node1:3306/hive?createDatabaseIfNotExist=true</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionDriverName</name>
+  <value>com.mysql.jdbc.Driver</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionUserName</name>
+  <value>root</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionPassword</name>
+  <value>YH520ss@</value>
+</property>
+在hive安装目录下的lib里添加mysql-connector-java-5.1.17-bin.jar（连接数据库时使用）
+启动服务端命令：hive --service metastore (&)
+查看端口：netstat -npl | grep java
+客户端：
+<property>
+  <name>hive.metastore.warehouse.dir</name>
+  <value>/user/hive/warehouse</value>
+</property>
+<property>
+  <name>hive.metastore.local</name>
+  <value>false</value>
+</property>
+<property>
+  <name>hive.metastore.uris</name>
+  <value>thrift://node3:9083</value>
+</property>
+将hadoop安装目录/home/hadoop-2.7.3/share/hadoop/yarn/lib/下的jline-2.12.jar与/home/hive-1.2.2/lib/jline-2.12.jar同步（连接hdfs时使用）
